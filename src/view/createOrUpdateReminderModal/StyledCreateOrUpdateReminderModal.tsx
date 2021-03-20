@@ -4,7 +4,7 @@ const StyledCreateOrUpdateReminderModal = styled.div`
     position: 'absolute';
     outline: 0;
     background-color: #FFF;
-    padding: 15px;
+    padding: 25px 15px;
 
     .close {
         font-size: 18px;
@@ -12,9 +12,13 @@ const StyledCreateOrUpdateReminderModal = styled.div`
         position: absolute;
         border: none;
         background: none;
-        right: 0;
-        top: 3px;
+        right: 5px;
+        top: 8px;
         cursor: pointer;
+    }
+
+    @media screen and (min-width: 767px) {
+        padding: 35px 15px;
     }
 `;
 
