@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Container } from '@material-ui/core';
 import CreateOrUpdateReminderModal from './view/createOrUpdateReminderModal/CreateOrUpdateReminderModal';
+import Calendar from './view/calendar/Calendar';
 
 function App() {
   let [reminderModalIsOpen, setReminderModalIsOpen] = useState(false);
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <Container>
+      <Calendar />
       <Button
         color="primary"
         onClick={handleModal(new Date())}
