@@ -59,7 +59,6 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
     const invalidForm = reminderState.description.length > 30;
 
     const { city, date } = reminderState;
-
     const updateForecast = async () => {
         const cityName = city.structured_formatting?.main_text;
         const days = eachDayOfInterval({

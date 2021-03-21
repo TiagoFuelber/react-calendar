@@ -1,6 +1,8 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import getMonth from 'date-fns/getMonth';
+import Enum from '../../domain/Enum';
 import Months from '../../enums/Months';
+import getKeysFromEnum from '../../helpers/getKeysFromEnum';
 
 interface IComponentProps {
     label: string,
@@ -9,10 +11,8 @@ interface IComponentProps {
 };
 
 const SelectMonth: React.FC<IComponentProps> = ({ label, date, onChange }) => {
-    const months = Object.keys(Months)
-        .filter(month => typeof Months[month as any] === 'number')
-        .map(month => Months[month as any])
-        .filter(month => parseInt(month) >= getMonth(new Date()));
+    const months = getKeysFromEnum(Months as Enum)
+        .filter(month => month >= getMonth(new Date()));
 
     return (
         <>
