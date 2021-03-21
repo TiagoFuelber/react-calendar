@@ -4,23 +4,20 @@ import getTenYears from '../../helpers/getTenYears';
 
 interface IComponentProps {
     label: string,
-    id: string,
-    value: number,
+    date: Date,
     onChange: (value: number) => void,
 };
 
 const SelectYear: React.FC<IComponentProps> = ({
     label,
-    id,
-    value,
+    date,
     onChange,
 }) => (
     <>
-        <InputLabel id={id}>{label}</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <Select
             label={label}
-            id={id}
-            value={value}
+            value={getYear(date)}
             onChange={event => onChange(event.target.value as number)}
         >
             {getTenYears(getYear(new Date())).map(year => (
