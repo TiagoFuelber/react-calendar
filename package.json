@@ -5,6 +5,8 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -12,8 +14,10 @@
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
+    "autosuggest-highlight": "^3.1.1",
     "date-fns": "^2.19.0",
     "fontsource-roboto": "^4.0.0",
+    "lodash.throttle": "^4.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
@@ -49,6 +53,8 @@
     ]
   },
   "devDependencies": {
+    "@types/autosuggest-highlight": "^3.1.1",
+    "@types/lodash": "^4.14.168",
     "@types/styled-components": "^5.1.9",
     "@types/uuid": "^8.3.0",
     "@types/webpack-env": "^1.16.0",

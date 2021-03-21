@@ -1,8 +1,6 @@
-import React, { ChangeEventHandler, useState } from 'react';
-import { Button, Container, Dialog, FormControl, TextField } from '@material-ui/core';
-import getYear from 'date-fns/getYear';
-import getMonth from 'date-fns/getMonth';
-import { getHours, getMinutes, setHours, setMinutes, setMonth, setYear } from 'date-fns/esm';
+import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import { Button, Container, Dialog, FormControl, TextField, Typography } from '@material-ui/core';
+import { eachDayOfInterval, format, setDate, setHours, setMinutes, setMonth, setYear } from 'date-fns/esm';
 import StyledCreateOrUpdateReminderModal from './StyledCreateOrUpdateReminderModal';
 import Reminder from '../../domain/Reminder';
 import SelectYear from '../shared/SelectYear';
@@ -11,6 +9,10 @@ import SelectHour from '../shared/SelectHours';
 import SelectMinutes from '../shared/SelectMinutes';
 import StyledForm from './StyledForm';
 import SelectColor from '../shared/SelectColor';
+import getForecast from '../../application/getForecast';
+import AutoCompletePlaces from '../shared/AutocompletePlaces';
+import IPlace from '../../domain/Place';
+import SelectDay from '../shared/SelectDay';
 
 type updateDateFn = (date: Date, value: number) => Date;
 
@@ -32,7 +34,7 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
     let [reminderState, setReminderState] = useState(
         reminder || new Reminder({ date: initialDate } as Reminder)
     );
-
+    let [weatherCode, setWeatherCode] = useState(0);
 
     const handleChangeDate = (fn: updateDateFn) => (newValue: number): void =>
         setReminderState(oldState => ({
@@ -40,13 +42,38 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
             date: fn(oldState.date, newValue)
         }));
 
-    const handleChangeProperty = (property: string) => (event: React.ChangeEvent<HTMLInputElement> | string): void =>
+    const handleChangeProperty = (property: string) =>
+        (event: React.ChangeEvent<HTMLInputElement> | string): void =>
+            setReminderState(oldState => ({
+                ...oldState,
+                [property]: typeof event === 'string' ? event : event.target.value
+            } as Reminder));
+
+    const handleChangePlace = (place: IPlace): void => {
         setReminderState(oldState => ({
             ...oldState,
-            [property]: typeof event === 'string' ? event : event.target.value
-        } as Reminder));
+            city: place
+        }));
+    }
 
     const invalidForm = reminderState.description.length > 30;
+
+    const { city, date } = reminderState;
+
+    const updateForecast = async () => {
+        const cityName = city.structured_formatting?.main_text;
+        const days = eachDayOfInterval({
+            start: new Date(format(new Date(), 'P')),
+            end: reminderState.date
+        }).length;
+
+        const newWeatherCode = await getForecast(cityName, days);
+        setWeatherCode(newWeatherCode);
+    };
+
+    useEffect(() => {
+        if (city.structured_formatting) updateForecast();
+    }, [city, date])
 
     return (
         <Dialog
@@ -66,7 +93,6 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         <FormControl className="description">
                             <TextField
                                 error={invalidForm}
-                                id="description"
                                 label="reminder"
                                 value={reminderState.description}
                                 onChange={handleChangeProperty('description') as textFieldEvent}
@@ -77,8 +103,7 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         <div className="year">
                             <SelectYear
                                 label="year"
-                                id="year"
-                                value={getYear(reminderState.date)}
+                                date={reminderState.date}
                                 onChange={handleChangeDate(setYear)}
                             />
                         </div>
@@ -86,17 +111,23 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         <div className="month">
                             <SelectMonth
                                 label="month"
-                                id="month"
-                                value={getMonth(reminderState.date) + 1}
+                                date={reminderState.date}
                                 onChange={handleChangeDate(setMonth)}
+                            />
+                        </div>
+
+                        <div className="date">
+                            <SelectDay
+                                label="day"
+                                date={reminderState.date}
+                                onChange={handleChangeDate(setDate)}
                             />
                         </div>
 
                         <div className="hours">
                             <SelectHour
                                 label="hour"
-                                id="hour"
-                                value={getHours(reminderState.date)}
+                                date={reminderState.date}
                                 onChange={handleChangeDate(setHours)}
                             />
                         </div>
@@ -104,20 +135,25 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         <div className="minutes">
                             <SelectMinutes
                                 label="mins"
-                                id="minutes"
-                                value={getMinutes(reminderState.date)}
+                                date={reminderState.date}
                                 onChange={handleChangeDate(setMinutes)}
                             />
                         </div>
 
                         <FormControl className="city">
-                            <TextField
-                                id="city"
+                            <AutoCompletePlaces
                                 label="city"
-                                value={reminderState.city}
-                                onChange={handleChangeProperty('city') as textFieldEvent}
+                                initialValue={reminderState.city}
+                                onSelect={handleChangePlace}
                             />
                         </FormControl>
+
+                        <div className="forecast">
+                            {weatherCode
+                                ? <i className={`icon wi wi-owm-${weatherCode}`}></i>
+                                : <Typography variant="caption" gutterBottom>No forecast available</Typography>
+                            }
+                        </div>
 
                         <div className="select-color">
                             <SelectColor

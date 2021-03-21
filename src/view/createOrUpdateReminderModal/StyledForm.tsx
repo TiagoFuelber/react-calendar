@@ -6,7 +6,12 @@ const StyledForm = styled.form`
     grid-row-gap: 25px;
     grid-column-gap: 25px;
 
-    .description, .city, .select-color, .actions {
+    .description,
+    .year, 
+    .city, 
+    .select-color, 
+    .actions,
+    .forecast {
         grid-column: 1 / -1;
     }
 
@@ -19,8 +24,26 @@ const StyledForm = styled.form`
         justify-content: space-between;
     }
 
+    .forecast {
+        display: flex;
+        justify-content: center;
+        caret-color: transparent;
+        background: lightcyan;
+        border-radius: 5px;
+        padding: 20px;
+
+        .icon.wi {
+            color: grey;
+            font-size: 35px;
+        }
+    }
+
     @media screen and (min-width: 767px) {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+
+        .year {
+            grid-column: auto;
+        }
 
         .actions {
             justify-content: flex-end;

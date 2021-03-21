@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import IPlace from './Place';
 
 export const ALL_COLORS = [
     "rgb(235, 90, 70)",
@@ -24,14 +25,14 @@ class Reminder {
     description: string;
     date: Date;
     color: Colors;
-    city: string;
+    city: IPlace;
 
     constructor(reminder: Reminder) {
         this.id = reminder.id || uuidv4();
         this.description = reminder.description || '';
         this.date = reminder.date;
         this.color = reminder.color || ALL_COLORS[0];
-        this.city = reminder.city || '';
+        this.city = reminder.city || {};
     }
 };
 

@@ -78,6 +78,7 @@ const SelectColor: React.FC<IComponentProps> = ({ label, value, onChange }) => {
             <div className="colors">
                 {ALL_COLORS.map(color => (
                     <Color
+                        key={color}
                         checked={value === color}
                         color={color}
                         onChange={onChange}
