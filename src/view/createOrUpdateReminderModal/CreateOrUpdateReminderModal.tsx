@@ -1,6 +1,6 @@
-import React, { ChangeEventHandler, useEffect, useState } from 'react';
+import React, { ChangeEventHandler, useContext, useEffect, useState } from 'react';
 import { Button, Container, Dialog, FormControl, TextField, Typography } from '@material-ui/core';
-import { eachDayOfInterval, format, setDate, setHours, setMinutes, setMonth, setYear } from 'date-fns/esm';
+import { eachDayOfInterval, format, setDate, setHours, setMinutes, setMonth, setYear } from 'date-fns';
 import StyledCreateOrUpdateReminderModal from './StyledCreateOrUpdateReminderModal';
 import Reminder from '../../domain/Reminder';
 import SelectYear from '../shared/SelectYear';
@@ -13,28 +13,30 @@ import getForecast from '../../application/getForecast';
 import AutoCompletePlaces from '../shared/AutocompletePlaces';
 import IPlace from '../../domain/Place';
 import SelectDay from '../shared/SelectDay';
+import { RemindersContext } from '../../state/RemindersProvider';
+import addReminder from '../../application/reminder/addReminder';
+import deleteReminder from '../../application/reminder/deleteReminder';
 
 type updateDateFn = (date: Date, value: number) => Date;
 
 type textFieldEvent = ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
 interface ComponentProps {
-    open: boolean,
     onClose: () => void,
     initialDate?: Date,
-    reminder?: Reminder
+    reminder?: Reminder,
 };
 
 const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
-    open,
     onClose,
     initialDate,
-    reminder
+    reminder,
 }) => {
     let [reminderState, setReminderState] = useState(
         reminder || new Reminder({ date: initialDate } as Reminder)
     );
     let [weatherCode, setWeatherCode] = useState(0);
+    let [, setReminders] = useContext(RemindersContext);
 
     const handleChangeDate = (fn: updateDateFn) => (newValue: number): void =>
         setReminderState(oldState => ({
@@ -70,14 +72,31 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
         setWeatherCode(newWeatherCode);
     };
 
+    const close = () => {
+        setReminderState(new Reminder({ date: initialDate } as Reminder));
+        onClose();
+    }
+
+    const save = () => {
+        addReminder(reminderState, setReminders);
+        close();
+    };
+
+    const delReminder = () => {
+        deleteReminder(reminderState, setReminders);
+        close();
+    }
+
     useEffect(() => {
         if (city.structured_formatting) updateForecast();
     }, [city, date])
 
     return (
         <Dialog
-            open={open}
-            onClose={onClose}
+            open={true}
+            onClose={close}
+            onClick={e => e.stopPropagation()}
+            data-testid="dialog"
         >
             <Container>
                 <StyledCreateOrUpdateReminderModal>
@@ -89,13 +108,17 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         &#10005;
                     </button>
                     <StyledForm noValidate autoComplete="off">
-                        <FormControl className="description">
+                        <FormControl
+                            className="description"
+                        >
                             <TextField
                                 error={invalidForm}
+                                id="reminder"
                                 label="reminder"
                                 value={reminderState.description}
                                 onChange={handleChangeProperty('description') as textFieldEvent}
                                 helperText="Max. 30 characters"
+                                autoFocus
                             />
                         </FormControl>
 
@@ -163,11 +186,16 @@ const CreateOrUpdateReminderModal: React.FC<ComponentProps> = ({
                         </div>
 
                         <div className="actions">
-                            <Button color="secondary">Delete</Button>
+                            <Button onClick={close} color="default">Cancel</Button>
+                            {reminder ? (
+                                <Button onClick={delReminder} color="secondary">Delete</Button>
+                            ) : null}
                             <Button
                                 variant="contained"
                                 color="primary"
                                 disabled={invalidForm}
+                                onClick={save}
+                                data-testid="save"
                             >
                                 Save
                             </Button>

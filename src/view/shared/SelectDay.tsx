@@ -1,5 +1,5 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { endOfMonth, getDate } from 'date-fns/esm';
+import { endOfMonth, getDate } from 'date-fns';
 import getMonth from 'date-fns/getMonth';
 
 const daysOnMonth = (date: Date): number[] => {

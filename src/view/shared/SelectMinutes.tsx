@@ -1,10 +1,10 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { getMinutes, isSameDay } from 'date-fns/esm';
+import { getMinutes, isSameDay } from 'date-fns';
 import getHours from 'date-fns/getHours';
 
 const minutesInAnHour = ((): number[] => {
     let hours: number[] = [];
-    for (let index = 1; index < 60; index++) {
+    for (let index = 0; index < 60; index++) {
         hours.push(index);
     }
     return hours;
@@ -34,7 +34,10 @@ const SelectMinutes: React.FC<IComponentProps> = ({ label, date, onChange }) => 
                             value={minutes}
                             disabled={isNow && minutes < getMinutes(new Date())}
                         >
-                            {minutes}
+                            {minutes.toLocaleString('en-US', {
+                                minimumIntegerDigits: 2,
+                                useGrouping: false
+                            })}
                         </MenuItem>)
                     )}
             </Select>

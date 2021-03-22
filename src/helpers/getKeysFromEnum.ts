@@ -1,4 +1,4 @@
-import Enum from '../domain/Enum';
+import Enum from './Enum';
 
 const getKeysFromEnum = (e: Enum): number[] => Object.keys(e)
     .filter(key => typeof e[key as any] === 'number')

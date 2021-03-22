@@ -1,6 +1,6 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import getMonth from 'date-fns/getMonth';
-import Enum from '../../domain/Enum';
+import Enum from '../../helpers/Enum';
 import Months from '../../enums/Months';
 import getKeysFromEnum from '../../helpers/getKeysFromEnum';
 

@@ -48,7 +48,7 @@ const StyledForm = styled.form`
         .actions {
             justify-content: flex-end;
 
-            > :first-child {
+            > :not(:last-child) {
                 margin-right: 25px;
             }
         }
