@@ -1,0 +1,7 @@
+"transform": {
+  "^.+\\.js": "node_modules/babel-jest"
+},
+"transformIgnorePatterns": [
+  "node_modules/(?!date-fns/index.js)",
+  "node_modules/(?!date-fns/index.js)",
+]

@@ -1,4 +1,6 @@
-import { addDays, format } from 'date-fns/esm';
+import { addDays, format, isSameDay } from 'date-fns';
+import { useContext } from 'react';
+import { RemindersContext } from '../../../state/RemindersProvider';
 import Day from '../Day/Day';
 import StyledWeek from './StyledWeek';
 
@@ -9,6 +11,7 @@ interface IComponentProps {
 const Week: React.FC<IComponentProps> = ({
     initDate
 }) => {
+    let [reminders] = useContext(RemindersContext);
     const getDays = () => {
         const days = [];
 
@@ -21,7 +24,11 @@ const Week: React.FC<IComponentProps> = ({
     return (
         <StyledWeek>
             {getDays().map(day => (
-                <Day key={format(day, 'P')} day={day} />
+                <Day
+                    key={format(day, 'P')}
+                    day={day}
+                    reminders={reminders.filter(reminder => isSameDay(day, reminder.date))}
+                />
             ))}
         </StyledWeek>
     );

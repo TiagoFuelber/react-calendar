@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { isSameMonth } from 'date-fns';
-import { addDays, addMonths, format, startOfMonth, startOfWeek } from 'date-fns/esm';
+import { addDays, addMonths, format, startOfMonth, startOfWeek } from 'date-fns';
 import CalendarHeader from './CalendarHeader.tsx/CalendarHeader';
 import StyledCalendar from './StyledCalendar';
 import Week from './Week/Week';
@@ -35,7 +35,6 @@ const WeekDaysIndicator: React.FC = () => {
 const Calendar: React.FC = () => {
     let [dateVisible, setDateVisible] = useState(new Date());
     let [firstDayOfEachWeek, setFirstDayOfEachWeek] = useState<Date[] | null>(null);
-
     const previousMonth = () => setDateVisible(currentState => addMonths(currentState, -1));
     const nextMonth = () => setDateVisible(currentState => addMonths(currentState, 1));
 

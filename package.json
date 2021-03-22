@@ -15,6 +15,9 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
     "autosuggest-highlight": "^3.1.1",
+    "babel-jest": "^26.6.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "date-fns": "^2.19.0",
     "fontsource-roboto": "^4.0.0",
     "lodash.throttle": "^4.1.1",
@@ -33,6 +36,11 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]s?$": "babel-jest"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.13.10",
     "@types/autosuggest-highlight": "^3.1.1",
     "@types/lodash": "^4.14.168",
     "@types/styled-components": "^5.1.9",

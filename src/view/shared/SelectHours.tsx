@@ -1,5 +1,5 @@
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { getHours, isSameDay } from 'date-fns/esm';
+import { getHours, isSameDay } from 'date-fns';
 
 const hoursInADay = ((): number[] => {
     let hours: number[] = [];
