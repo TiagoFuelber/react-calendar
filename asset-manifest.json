@@ -1,27 +1,27 @@
 {
   "files": {
     "main.css": "/react-calendar/static/css/main.561210b0.chunk.css",
-    "main.js": "/react-calendar/static/js/main.f321cc64.chunk.js",
-    "main.js.map": "/react-calendar/static/js/main.f321cc64.chunk.js.map",
-    "runtime-main.js": "/react-calendar/static/js/runtime-main.fb97e718.js",
-    "runtime-main.js.map": "/react-calendar/static/js/runtime-main.fb97e718.js.map",
+    "main.js": "/react-calendar/static/js/main.82644d52.chunk.js",
+    "main.js.map": "/react-calendar/static/js/main.82644d52.chunk.js.map",
+    "runtime-main.js": "/react-calendar/static/js/runtime-main.d87b3d0a.js",
+    "runtime-main.js.map": "/react-calendar/static/js/runtime-main.d87b3d0a.js.map",
     "static/css/2.496b4463.chunk.css": "/react-calendar/static/css/2.496b4463.chunk.css",
-    "static/js/2.cee3d9fd.chunk.js": "/react-calendar/static/js/2.cee3d9fd.chunk.js",
-    "static/js/2.cee3d9fd.chunk.js.map": "/react-calendar/static/js/2.cee3d9fd.chunk.js.map",
-    "static/js/3.e7668a13.chunk.js": "/react-calendar/static/js/3.e7668a13.chunk.js",
-    "static/js/3.e7668a13.chunk.js.map": "/react-calendar/static/js/3.e7668a13.chunk.js.map",
+    "static/js/2.2415a220.chunk.js": "/react-calendar/static/js/2.2415a220.chunk.js",
+    "static/js/2.2415a220.chunk.js.map": "/react-calendar/static/js/2.2415a220.chunk.js.map",
+    "static/js/3.fdc6ed75.chunk.js": "/react-calendar/static/js/3.fdc6ed75.chunk.js",
+    "static/js/3.fdc6ed75.chunk.js.map": "/react-calendar/static/js/3.fdc6ed75.chunk.js.map",
     "index.html": "/react-calendar/index.html",
     "static/css/2.496b4463.chunk.css.map": "/react-calendar/static/css/2.496b4463.chunk.css.map",
     "static/css/main.561210b0.chunk.css.map": "/react-calendar/static/css/main.561210b0.chunk.css.map",
-    "static/js/2.cee3d9fd.chunk.js.LICENSE.txt": "/react-calendar/static/js/2.cee3d9fd.chunk.js.LICENSE.txt",
+    "static/js/2.2415a220.chunk.js.LICENSE.txt": "/react-calendar/static/js/2.2415a220.chunk.js.LICENSE.txt",
     "static/media/index.css": "/react-calendar/static/media/roboto-vietnamese-400-normal.52cebac0.woff2",
     "static/media/weather-icons.min.css": "/react-calendar/static/media/weathericons-regular-webfont.e218aee6.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.fb97e718.js",
+    "static/js/runtime-main.d87b3d0a.js",
     "static/css/2.496b4463.chunk.css",
-    "static/js/2.cee3d9fd.chunk.js",
+    "static/js/2.2415a220.chunk.js",
     "static/css/main.561210b0.chunk.css",
-    "static/js/main.f321cc64.chunk.js"
+    "static/js/main.82644d52.chunk.js"
   ]
 }
